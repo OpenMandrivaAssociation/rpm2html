@@ -1,6 +1,6 @@
 Name:           rpm2html
 Version:        1.11.2
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Translates rpm database into HTML and RDF info
 License:        MIT
 Group:          Networking/WWW
@@ -18,6 +18,7 @@ Patch0:         rpm2html-1.8.2-no_db.patch
 Patch1:         rpm2html-1.8.1-mysql.patch
 Patch2:         rpm2html-1.9.2-rpm2html_config.patch
 Patch3:         rpm2html-1.9.2-mysql-release.patch
+Patch4:		rpm2html-1.11.2-rpm5.patch
 Requires:       gnupg
 BuildRequires:  autoconf2.5
 BuildRequires:  automake1.7
@@ -74,6 +75,9 @@ This package contains the nessesary files to enable MySQL support.
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
+%patch4 -p1 -b .rpm5~
+rm -f configure Makefile
+autoreconf -fi
 
 # tag it with the correct version (duh!, at what point did this work?)
 %{__perl} -pi -e "s|^#define RPM2HTML_VER.*|#define RPM2HTML_VER \"%{version}-%{release}\"|g" rpm2html.h
