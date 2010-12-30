@@ -1,6 +1,6 @@
 Name:           rpm2html
 Version:        1.11.2
-Release:        %mkrel 2
+Release:        %mkrel 4
 Summary:        Translates rpm database into HTML and RDF info
 License:        MIT
 Group:          Networking/WWW
