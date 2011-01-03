@@ -1,6 +1,6 @@
 Name:           rpm2html
 Version:        1.11.2
-Release:        %mkrel 5
+Release:        %mkrel 6
 Summary:        Translates rpm database into HTML and RDF info
 License:        MIT
 Group:          Networking/WWW
@@ -21,7 +21,7 @@ Patch3:         rpm2html-1.9.2-mysql-release.patch
 Patch4:		rpm2html-1.11.2-rpm5.patch
 Requires:       gnupg
 BuildRequires:  autoconf2.5
-BuildRequires:  automake1.7
+BuildRequires:  automake
 BuildRequires:  bzip2-devel
 BuildRequires:  gnupg
 BuildRequires:  libintl
@@ -88,9 +88,9 @@ autoreconf -fi
 %build
 export WANT_AUTOCONF_2_5=1
 %{__libtoolize} --copy --force
-%{_bindir}/aclocal-1.7
+%{_bindir}/aclocal
 %{__autoconf}
-%{_bindir}/automake-1.7 --add-missing
+%{_bindir}/automake --add-missing
 
 # first build without MySQL support
 %configure2_5x --sysconfdir=%{_sysconfdir} --with-gpg
