@@ -1,0 +1,186 @@
+diff -p -up rpm2html-1.11.2/cleanup.c.rpm5~ rpm2html-1.11.2/cleanup.c
+--- rpm2html-1.11.2/cleanup.c.rpm5~	2010-10-05 14:36:54.000000000 +0000
++++ rpm2html-1.11.2/cleanup.c	2010-12-06 23:16:48.610966539 +0000
+@@ -38,7 +38,12 @@
+ #include <errno.h>
+ #include <time.h>
+ 
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
+ #include <rpm/rpmlib.h>
++#endif
+ 
+ #include "rpm2html.h"
+ #include "rpmdata.h"
+diff -p -up rpm2html-1.11.2/configure.in.rpm5~ rpm2html-1.11.2/configure.in
+--- rpm2html-1.11.2/configure.in.rpm5~	2010-12-06 23:16:48.610966539 +0000
++++ rpm2html-1.11.2/configure.in	2010-12-06 23:16:48.909292544 +0000
+@@ -56,6 +56,19 @@ AC_CHECK_LIB(popt, poptGetContext,
+   [LIBS="-lpopt $LIBS"],
+   AC_MSG_ERROR(*** libpopt not found))
+ 
++PKG_CHECK_MODULES(RPM, rpm, [
++			     CPPFLAGS="$RPM_CFLAGS $CPPFLAGS"
++			     AC_CHECK_HEADERS(stdint.h rpm4compat.h)
++			     AC_CHECK_LIB(rpmio, Fopen,
++					  [LIBS="$RPM_LIBS $LIBS"
++					   AC_DEFINE_UNQUOTED(USE_RPMIO, 1)
++					   USE_RPMIO=1
++
++					   ],
++					   AC_MSG_ERROR(*** librpm not found))
++					   ],
++			     [(
++
+ AC_CHECK_LIB(rpmio, Fopen,
+   [LIBS="-lrpmio $LIBS";
+ 	AC_DEFINE_UNQUOTED(USE_RPMIO, 1)
+@@ -102,6 +115,7 @@ dnl hack: we're gonna use rpm-3.1
+ AC_DEFINE_UNQUOTED(USE_RPM310, 1)
+ AC_SUBST(USE_RPM310)
+ AC_CHECK_LIB(rpm, rpmReadConfigFiles,,AC_MSG_ERROR(*** rpm lib not found))
++)])
+ 
+ dnl
+ dnl Checking for libxml
+diff -p -up rpm2html-1.11.2/html.c.rpm5~ rpm2html-1.11.2/html.c
+--- rpm2html-1.11.2/html.c.rpm5~	2010-11-09 22:16:29.000000000 +0000
++++ rpm2html-1.11.2/html.c	2010-12-06 23:17:19.980977678 +0000
+@@ -22,7 +22,12 @@
+ #include <errno.h>
+ #include <ctype.h>
+ 
+-#include <rpmlib.h>
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
++#include <rpm/rpmlib.h>
++#endif
+ 
+ #include "rpm2html.h"
+ #include "rpmdata.h"
+diff -p -up rpm2html-1.11.2/rpm2html.c.rpm5~ rpm2html-1.11.2/rpm2html.c
+--- rpm2html-1.11.2/rpm2html.c.rpm5~	2010-11-09 21:53:46.000000000 +0000
++++ rpm2html-1.11.2/rpm2html.c	2010-12-06 23:16:48.909292544 +0000
+@@ -23,7 +23,12 @@
+ 
+ #include <ctype.h>
+ #include <errno.h>
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
+ #include <rpm/rpmlib.h>
++#endif
+ 
+ #include "rpm2html.h"
+ #include "rpmdata.h"
+diff -p -up rpm2html-1.11.2/rpmdata.c.rpm5~ rpm2html-1.11.2/rpmdata.c
+--- rpm2html-1.11.2/rpmdata.c.rpm5~	2008-11-13 23:56:21.000000000 +0000
++++ rpm2html-1.11.2/rpmdata.c	2010-12-06 23:16:48.909292544 +0000
+@@ -21,7 +21,12 @@
+ #include <ctype.h>
+ #include <errno.h>
+ 
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
+ #include <rpm/rpmlib.h>
++#endif
+ 
+ #include "rpm2html.h"
+ #include "rpmdata.h"
+diff -p -up rpm2html-1.11.2/rpmdata.h.rpm5~ rpm2html-1.11.2/rpmdata.h
+--- rpm2html-1.11.2/rpmdata.h.rpm5~	2010-10-05 14:36:54.000000000 +0000
++++ rpm2html-1.11.2/rpmdata.h	2010-12-06 23:16:48.909292544 +0000
+@@ -10,6 +10,10 @@
+ #define __RPMDATA_H__
+ 
+ #include <sys/types.h>
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
+ #if defined(HAVE_RPM_RPMLEGACY_H)
+ #define _RPM_4_4_COMPAT
+ #include <rpm/rpmlegacy.h>
+@@ -18,6 +22,7 @@
+ #include <rpm/rpmio.h>
+ #endif
+ #include <rpm/header.h>
++#endif
+ 
+ /*
+  * Structure associated with a local directory containing RPM files.
+diff -p -up rpm2html-1.11.2/rpmopen.c.rpm5~ rpm2html-1.11.2/rpmopen.c
+--- rpm2html-1.11.2/rpmopen.c.rpm5~	2010-11-09 21:57:42.000000000 +0000
++++ rpm2html-1.11.2/rpmopen.c	2010-12-06 23:16:52.997217239 +0000
+@@ -22,6 +22,10 @@
+ #include <errno.h>
+ #include <time.h>
+ 
++#ifdef HAVE_RPM4COMPAT_H
++#include <stdint.h>
++#include <rpm4compat.h>
++#else
+ #include <rpm/rpmlib.h>
+ #include <rpm/rpmmacro.h>
+ #include <rpm/rpmdb.h>
+@@ -29,8 +33,9 @@
+ #ifdef HAVE_RPM42
+ #include <rpm/rpmfi.h>
+ #endif
++#endif
+ 
+-#ifndef HAVE_RPM_RPMLEGACY_H
++#if !defined(HAVE_RPM_RPMLEGACY_H) && !defined(HAVE_RPM4COMPAT_H)
+ int readLead(FD_t fd, /*@out@*/struct rpmlead *lead);
+ #endif
+ #ifdef HAVE_RPM42
+@@ -1048,7 +1053,7 @@ rpmOpen(char *nameRpm, rpmDirPtr dir, rp
+     int rc;
+     Header h = NULL;
+     Header s = NULL;
+-#ifndef HAVE_RPM_RPMLEGACY_H
++#if !defined(HAVE_RPM_RPMLEGACY_H) && !defined(HAVE_RPM4COMPAT_H)
+     struct rpmlead lead;
+ #endif
+     int isSource;
+@@ -1131,9 +1136,22 @@ rpmOpen(char *nameRpm, rpmDirPtr dir, rp
+      }
+ 
+ 
+-#ifdef HAVE_RPM_RPMLEGACY_H
++#if defined(HAVE_RPM_RPMLEGACY_H)
+     // XXX  phanecak: for now I do not know how to read signatures with rpm.org 4.6 or later
+-#else	// ifdef HAVE_RPM_RPMLEGACY_H
++#elif defined(HAVE_RPM4COMPAT_H)
++    struct rpmQVKArguments_s qva;
++    qva.qva_source = RPMQV_RPM;
++    qva.qva_flags = VERIFY_ALL;
++    rpmts ts = rpmtsCreate();
++
++    rpmlogLevelPrefix(RPMLOG_NOTICE);
++
++    if(!rpmVerifySignatures(&qva, ts, fd, buffer)) {
++	rpmlogPrint(NULL);
++    }
++    ts = rpmtsFree(ts);
++
++#else	// if defined(HAVE_RPM_RPMLEGACY_H) #elif defined(HAVE_RPM4COMPAT_H)
+     /* read the RPM signature */
+     if (readLead(fd, &lead)) {
+         fprintf(stderr, "readLead failed\n");
+@@ -1195,7 +1213,7 @@ rpmOpen(char *nameRpm, rpmDirPtr dir, rp
+ #endif
+             break;
+     }
+-#endif	// ifdef HAVE_RPM_RPMLEGACY_H
++#endif	// if !defined(HAVE_RPM_RPMLEGACY_H) && !defined(HAVE_RPM4COMPAT_H)
+ 
+     /* close the descriptor */
+     Fclose(fd);

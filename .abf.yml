@@ -1,0 +1,6 @@
+sources:
+  "rpm2html-1.11.2.tar.gz:"	96c4c5e8c3f4bb5eb9995adeebb1040268ed1023
+  "rpm2html-1.11.2.tar.gz.sig:"	59dd1f902fc7d4b26131dbe81247fc67100189b3
+  "rpm2html.bashrc:"	3d4d7943fef1c8ba5e87a806298f1470cd003866
+  "rpm2html-mysql-1.9.5.tar.bz2:"	88c405e481f3f41bb0c85ef9932eebd0f5ea10fa
+  "rpm2html.sql:"	b05f102c2e4839760a2b8911cee0245c87ad8fc7

@@ -1,0 +1,18 @@
+--- configure.in	2002-11-12 18:54:03.000000000 +0100
++++ configure.in.oden	2003-02-23 15:07:53.000000000 +0100
+@@ -152,13 +152,13 @@
+ SQL_PROGS=
+ AC_ARG_WITH(sql, [  --with-sql              Add the SQL support (off)])
+ if test "$with_sql" = "yes" ; then
+-    LIBS="$LIBS -L/usr/lib/mysql"
++    LIBS="$LIBS -L/usr/lib"
+     AC_CHECK_LIB(mysqlclient, mysql_init,
+       [LIBS="$LIBS -lmysqlclient"],
+       AC_MSG_ERROR(*** libmysqlclient not found))
+ 
+     echo Enabling SQL support
+-    SQL_FLAGS="-DWITH_SQL"
++    SQL_FLAGS="-I/usr/include/mysql -DWITH_SQL"
+     SQL_OBJ=sql.o
+     SQL_PROGS=sqltools
+ fi

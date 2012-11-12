@@ -1,0 +1,25 @@
+--- configure.in	2003-09-26 21:42:01.000000000 +0200
++++ configure.in.oden	2004-06-07 04:09:01.805864346 +0200
+@@ -52,14 +52,6 @@
+ 
+ AC_CHECK_LIB(intl, gettext)
+ 
+-AC_CHECK_FUNC(dbopen, [], [
+-    AC_CHECK_LIB(db-3.1, db_create, [LIBS="-ldb-3.1 $LIBS"],
+-      AC_CHECK_LIB(db-3.0, db_create, [LIBS="-ldb-3.0 $LIBS"],
+-        AC_CHECK_LIB(db1, dbopen, [LIBS="-ldb1 $LIBS"],
+-          AC_CHECK_LIB(db, dbopen, [LIBS="-ldb $LIBS"],
+-             [LIBS="-lbz2 -lpthread -lrt $LIBS"]))))
+-])
+-
+ AC_CHECK_LIB(popt, poptGetContext,
+   [LIBS="-lpopt $LIBS"],
+   AC_MSG_ERROR(*** libpopt not found))
+@@ -137,7 +129,6 @@
+ dnl Checks for header files.
+ AC_HEADER_DIRENT
+ AC_HEADER_STDC
+-AC_CHECK_HEADERS(db_185.h db1/db.h)
+ AC_CHECK_HEADERS(fcntl.h unistd.h ctype.h dirent.h errno.h malloc.h)
+ AC_CHECK_HEADERS(rpm/rpmio.h)
+ AC_CHECK_HEADERS(stdarg.h sys/stat.h sys/types.h time.h)

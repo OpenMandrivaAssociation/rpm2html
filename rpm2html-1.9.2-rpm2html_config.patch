@@ -1,0 +1,42 @@
+--- rpm2html.config.orig	2005-10-10 14:21:09.000000000 +0200
++++ rpm2html.config	2005-10-10 14:20:50.000000000 +0200
+@@ -44,25 +44,25 @@
+ ; mirror = ftp://rpmfind.net/linux/redhat/redhat-6.1/i386/RedHat/RPMS
+ ; mirror = ftp://ftp.redhat.com/pub/redhat/redhat-6.1/i386/RedHat/RPMS
+ ;
+-[/usr/src/redhat/RPMS]
+-name=Locally compiled packages
+-color=#e0e0ff
+-subdir=compiled
+-ftp=file:///usr/src/redhat/RPMS
+-ftpsrc=file:///usr/src/redhat/SRPMS
++;[/usr/src/RPM/RPMS]
++;name=Locally compiled packages
++;color=#e0e0ff
++;subdir=compiled
++;ftp=file:///usr/src/RPM/RPMS
++;ftpsrc=file:///usr/src/RPM/SRPMS
+ 
+ [localbase]
+ name=Installed RPMs in default base
+ color=#e0ffe0
+ subdir=local
+-ftp://ftp.redhat.com/pub/redhat/linux/7.1/en/os/i386/RedHat/RPMS/
+-ftpsrc=ftp://ftp.redhat.com/pub/redhat/linux/7.1/en/os/i386/SRPMS/
++;ftp://ftp.redhat.com/pub/redhat/linux/7.1/en/os/i386/RedHat/RPMS/
++;ftpsrc=ftp://ftp.redhat.com/pub/redhat/linux/7.1/en/os/i386/SRPMS/
+ 
+-[/mnt/cdrom]
+-name=Content of CD-ROM
+-color=#ffe0ff
+-subdir=cdrom
+-ftp=file:/mnt/cdrom
+-tree=true
++;[/mnt/cdrom]
++;name=Content of CD-ROM
++;color=#ffe0ff
++;subdir=cdrom
++;ftp=file:/mnt/cdrom
++;tree=true
+ 
+ 
