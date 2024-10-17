@@ -4,7 +4,7 @@ Release:        %mkrel 7
 Summary:        Translates rpm database into HTML and RDF info
 License:        MIT
 Group:          Networking/WWW
-URL:            http://www.nongnu.org/rpm2html/
+URL:            https://www.nongnu.org/rpm2html/
 Source0:        http://savannah.nongnu.org/download/rpm2html/rpm2html-%{version}.tar.gz
 Source1:        http://download.savannah.gnu.org/releases/rpm2html/rpm2html-%{version}.tar.gz.sig
 # cvs -z3 -d:pserver:anonymous@cvs.savannah.nongnu.org:/sources/rpm2html co -rRPM2HTML_1_9_5 rpm2html
