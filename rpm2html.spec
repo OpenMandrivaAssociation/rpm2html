@@ -20,6 +20,8 @@ Patch2:         rpm2html-1.9.2-rpm2html_config.patch
 Patch3:         rpm2html-1.9.2-mysql-release.patch
 Patch4:		rpm2html-1.11.2-rpm5.patch
 Requires:       gnupg
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:  autoconf2.5
 BuildRequires:  automake
 BuildRequires:  bzip2-devel
